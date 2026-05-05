@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "description": "WhatsApp bot foundation with a modular Node.js architecture.",
-  "main": "src/index.js",
+  "main": "bootstrap.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node bootstrap.js",
+    "bot": "node src/index.js"
   },
   "engines": {
     "node": ">=22"

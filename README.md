@@ -35,6 +35,8 @@ npm start
 
 Saat pertama kali jalan, terminal akan menampilkan QR code untuk login WhatsApp.
 
+Jika server panel hanya mengizinkan satu command startup, project ini sudah menyiapkan `bootstrap.js` agar bisa tetap menjalankan alur persiapan lalu start bot melalui satu entrypoint.
+
 ## Fitur Awal
 
 - Koneksi WhatsApp dengan session tersimpan di `.session/`
