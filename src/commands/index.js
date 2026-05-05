@@ -1,6 +1,6 @@
-const { createHelpCommands } = require("./help");
-const { pingCommand } = require("./ping");
-const { stickerCommand } = require("./sticker");
+const { pingCommand } = require("./general/ping");
+const { createHelpCommands } = require("./info/help");
+const { stickerCommand } = require("./sticker/sticker");
 
 const baseCommands = [pingCommand, stickerCommand];
 

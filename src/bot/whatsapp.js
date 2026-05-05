@@ -69,6 +69,10 @@ function extractCommandText(message) {
   return getTextFromMessageContent(message.message);
 }
 
+function getMatchedPrefix(text) {
+  return env.BOT_PREFIXES.find((prefix) => text.startsWith(prefix)) || null;
+}
+
 async function sendReaction(socket, jid, key, emoji) {
   await socket.sendMessage(jid, {
     react: {
@@ -130,17 +134,19 @@ async function startWhatsAppBot() {
         continue;
       }
 
-      if (!text.startsWith(env.BOT_PREFIX)) {
+      const matchedPrefix = getMatchedPrefix(text);
+
+      if (!matchedPrefix) {
         continue;
       }
 
-      const withoutPrefix = text.slice(env.BOT_PREFIX.length).trim();
+      const withoutPrefix = text.slice(matchedPrefix.length).trim();
       const [name, ...args] = withoutPrefix.split(/\s+/);
       const command = findCommand(name || "");
 
       if (!command) {
         await socket.sendMessage(remoteJid, {
-          text: `Command tidak dikenal. Ketik ${env.BOT_PREFIX}help untuk melihat daftar command.`
+          text: `Command tidak dikenal. Ketik ${matchedPrefix}help untuk melihat daftar command.`
         });
         continue;
       }
@@ -148,7 +154,7 @@ async function startWhatsAppBot() {
       try {
         await command.execute(args, {
           senderJid: remoteJid,
-          prefix: env.BOT_PREFIX,
+          prefix: matchedPrefix,
           pushName: message.pushName || undefined,
           message,
           hasImage:
